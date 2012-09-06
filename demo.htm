@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script language="javascript" type="text/javascript" src="jquery-1.8.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="jquery.farseer.hint.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("input").hint();
+        });
+    </script>
+    <style type="text/css">
+        .funky
+        {
+            /* terrible, yes */
+            background-color : Yellow;
+            border-color : Purple;
+            padding : 3px;
+            border-radius : 5px;
+        }
+        
+        .ui-input-hint
+        {
+            color : #ababab;
+            font-style : italic;
+        }
+    </style>
+</head>
+<body>
+    <input id="userName" class="funky" type="text" title="Type something, hint hint" style="width:300px"/>
+    <input id="password" class="funky" type="text" title="Password hints get around the mask" style="width:300px"/>
+</body>
+</html>
