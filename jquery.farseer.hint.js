@@ -17,7 +17,7 @@
                 }).focus(function () {
                     $("[data-hint-for='" + $(this).attr("id") + "']").remove();
                     $(this).css("display", "");
-                }).blur(); // now change all inputs to title
+                }).blur();
 
 
             }
