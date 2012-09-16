@@ -1,42 +1,55 @@
-﻿(function ($) {
-    $.fn.hint = function () {
+(function ($) {
+    $.fn.hint = function (options) {
+
+        var hintOptions = options || { useHtml5PlaceholderWhereSupported : false };
 
         var hintClass = "ui-input-hint";
 
+        function browserSupportsPlaceHolderAttribute() {
+            var input = document.createElement('input');
+	        return ('placeholder' in input);
+        }
+
         this.each(function () {
-            // check if title exists (containing hint) and create and display hint if input is empty
             var $input = $(this),
                 title = $input.attr('title');
-
-            if (title) {
-                $input.blur(function () {
-                    if (this.value === '') {
-                        $input.before("<input type='text' class='" + hintClass + " farseer-event-init' data-hint-for='" + $(this).attr("id") + "' value='" + title + "' />");
-                        initialiseHints();
-                    }
-                }).focus(function () {
-                    $("[data-hint-for='" + $(this).attr("id") + "']").remove();
-                    $(this).css("display", "");
-                }).blur(); // now change all inputs to title
-
-
+            
+            if (title) {                
+                if (browserSupportsPlaceHolderAttribute() && hintOptions.useHtml5PlaceholderWhereSupported){
+                    $input.attr("placeholder", title);
+                }
+                else
+                {
+                    $input.blur(function () {
+                        if (this.value === '') {
+                            $input.before("<input type='text' class='" + hintClass + " farseer-event-init' data-hint-for='" + $(this).attr("id") + "' value='" + title + "' />");
+                            initialiseHints();
+                        }
+                    }).focus(function () {
+                        $("[data-hint-for='" + $(this).attr("id") + "']").remove();
+                        $(this).css("display", "");
+                    }).blur(); // now change all inputs to title
+                }
             }
         });
 
         function initialiseHints() {
             $("." + hintClass + ".farseer-event-init").each(function () {
                 $hint = $(this);
+                
                 var $target = $("#" + $hint.attr("data-hint-for"));
-                $hint.height($target.height());
-                $hint.width($target.width());
-                $hint.attr("class", $target.attr("class"));
-                $hint.addClass(hintClass);
+                
+                $hint
+                    .height($target.height())
+                    .width($target.width())
+                    .attr("class", $target.attr("class"))
+                    .addClass(hintClass)
+                    .bind("focus.farseer-hint", function () {
+                        $("#" + $(this).attr("data-hint-for")).focus();
+                    });
 
                 $target.css("display", "none");
-                $hint.bind("focus.farseer-hint", function () {
-                    $("#" + $(this).attr("data-hint-for")).focus();
-                });
-
+                
                 $hint.removeClass("farseer-event-init");
             });
         }
