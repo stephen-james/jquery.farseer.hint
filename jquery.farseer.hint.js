@@ -13,7 +13,7 @@
         this.each(function () {
             var $input = $(this),
                 title = $input.attr('title');
-            
+
             if (title) {                
                 if (browserSupportsPlaceHolderAttribute() && hintOptions.useHtml5PlaceholderWhereSupported){
                     $input.attr("placeholder", title);
