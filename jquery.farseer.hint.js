@@ -1,3 +1,6 @@
+// jquery.farseer.hint.js
+// fork it from github, https://github.com/stephen-james
+
 (function ($) {
     $.fn.hint = function (options) {
 
