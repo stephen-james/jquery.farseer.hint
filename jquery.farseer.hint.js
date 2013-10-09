@@ -30,7 +30,6 @@
                         }
                     }).focus(function () {
                         $("[data-hint-for='" + $(this).attr("id") + "']").remove();
-                        $(this).css("display", "");
                     }).blur(); // now change all inputs to title
                 }
             }
@@ -48,7 +47,9 @@
                     .attr("class", $target.attr("class"))
                     .addClass(hintClass)
                     .bind("focus.farseer-hint", function () {
-                        $("#" + $(this).attr("data-hint-for")).focus();
+                        $("#" + $(this).attr("data-hint-for"))
+                            .css("display", "")
+                            .focus();                    	
                     });
 
                 $target.css("display", "none");
